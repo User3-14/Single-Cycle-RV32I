@@ -34,13 +34,13 @@ For a full list with opcodes and function codes, see [`Instructions.txt`](Instru
 ---
 
 ## 📦 File Structure
-/src # VHDL source files
-/testbench # Simulation files
-/docs # Diagrams and documentation
-Instructions.txt
-Processor Specifications.txt
-Datapath.png
-README.md
+- /src # VHDL source files
+- /testbench # Simulation files
+- /docs # Diagrams and documentation
+- Instructions.txt
+- Processor Specifications.txt
+- Datapath.png
+- README.md
 
 
 ---
