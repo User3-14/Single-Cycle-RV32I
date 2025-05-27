@@ -34,4 +34,45 @@ For a full list with opcodes and function codes, see [`Instructions.txt`](Instru
 ---
 
 ## 📦 File Structure
+/src # VHDL source files
+/testbench # Simulation files
+/docs # Diagrams and documentation
+Instructions.txt
+Processor Specifications.txt
+Datapath.png
+README.md
+
+
+---
+
+## 🧠 Data Memory Controller
+
+To support byte and halfword load/store instructions (e.g., `lb`, `lh`, `lbu`, `sb`, `sh`), a custom **Data Memory Controller** was implemented within the memory module.
+
+Key features:
+- **Byte-addressable memory array** using 8-bit elements
+- **Alignment masking** to ensure correctness for `sw/lw`, `sh/lh`, and `sb/lb`
+- **Sign-extension & zero-extension** handling for `lb` and `lbu`
+- **Offset-based access control** to simplify operation decoding
+- Seamless integration into the single-cycle datapath
+
+This design enhances instruction support while minimizing datapath complexity—allowing future upgrades to a pipelined architecture with fewer changes.
+
+---
+
+## 🔭 Future Work
+
+This project is planned to evolve into a:
+- **5-stage pipelined RV64I processor**
+- Full instruction and hazard support
+- Branch prediction unit
+- Memory-mapped IO integration
+- Synthesis on FPGA hardware
+
+---
+
+## 🧾 License
+
+This project is for educational and academic purposes only.  
+For collaboration or external use inquiries, please reach out via email.
 
