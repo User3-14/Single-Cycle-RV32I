@@ -1,0 +1,15 @@
+-- Decoder
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Decode is
+	port (
+			instr
+		);
+end entity;
+
+architecture behavioral of Decode is
+begin
+
+end architecture;

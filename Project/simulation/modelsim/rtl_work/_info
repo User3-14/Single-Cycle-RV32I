@@ -1,0 +1,54 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Local/Studies/ITCE364/Project/RV32I Single Cycle/Project/simulation/modelsim
+Eregisterfile
+Z1 w1733945769
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8C:/Local/Studies/ITCE364/Project/RV32I Single Cycle/Project/Components/RegisterFile.vhd
+Z6 FC:/Local/Studies/ITCE364/Project/RV32I Single Cycle/Project/Components/RegisterFile.vhd
+l0
+L5 1
+VQ6`2?=njeQk1AT:fn=40m3
+!s100 hENOi6WXLzaTO?0BQ2M8a3
+Z7 OV;C;2020.1;71
+33
+Z8 !s110 1746978722
+!i10b 1
+Z9 !s108 1746978722.000000
+Z10 !s90 -reportprogress|300|-2008|-work|work|C:/Local/Studies/ITCE364/Project/RV32I Single Cycle/Project/Components/RegisterFile.vhd|
+!s107 C:/Local/Studies/ITCE364/Project/RV32I Single Cycle/Project/Components/RegisterFile.vhd|
+!i113 1
+Z11 o-2008 -work work
+Z12 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+R4
+DEx4 work 12 registerfile 0 22 Q6`2?=njeQk1AT:fn=40m3
+!i122 0
+l23
+L18 18
+V<zRlZHaCg;YB<>KPlPzVI2
+!s100 lLYcmchVY`cUYocT?Hcf71
+R7
+33
+R8
+!i10b 1
+R9
+R10
+Z13 !s107 C:/Local/Studies/ITCE364/Project/RV32I Single Cycle/Project/Components/RegisterFile.vhd|
+!i113 1
+R11
+R12

@@ -1,0 +1,80 @@
+Hi, everybody.
+
+I'm sure you can tell from the title that I'm going crazy. I'm designing a small single cycle, RISC-V processor (VHDL; Quartus; ModelSim) for my Computer Architecture class's project, and it's been three days of non-stop work by now. Currently, I'm facing a stubborn issue with the instruction decoder. Here's the code:
+
+	-- Decoder
+
+	library ieee;
+	use ieee.std_logic_1164.all;
+
+	entity Decode is
+		port (
+				instr		: in std_logic_vector(31 downto 0);
+				opcode	: out std_logic_vector(6 downto 0);
+				func3		: out std_logic_vector(2 downto 0);
+				func7		: out std_logic_vector(6 downto 0);
+				rs1_addr	: out std_logic_vector(4 downto 0);
+				rs2_addr	: out std_logic_vector(4 downto 0);
+				rd_addr	: out std_logic_vector(4 downto 0);
+				immextnd	: out std_logic_vector(31 downto 0)
+			);
+	end entity;
+
+	architecture behavioral of Decode is
+	begin
+		process(instr)
+		begin
+			-- Decoding the instruction fields
+			opcode <= instr(6 downto 0);
+			func3 <= instr(14 downto 12);
+			func7 <= instr(31 downto 25);
+			rs1_addr <= instr(19 downto 15);
+			rs2_addr <= instr(24 downto 20);
+			rd_addr <= instr(11 downto 7);
+
+			-- I-format (Load, Immediate)
+			if (opcode = "0000011" or opcode = "0010011") then
+				immextnd(11 downto 0) <= instr(31 downto 20);
+				case immextnd(11) is
+					when '1' =>
+						immextnd(31 downto 12) <= (others => '1');
+					when others =>
+						immextnd(31 downto 12) <= (others => '0');
+				end case;
+    
+			-- R-format (Arithmetic)
+			elsif (opcode = "0110011") then
+				immextnd <= (others => '0');
+      
+			-- S-format (Store)
+			elsif (opcode = "0100011") then
+				immextnd(11 downto 0) <= instr(31 downto 25) & instr(11 downto 7);
+				case immextnd(11) is
+					when '1' =>
+						immextnd(31 downto 12) <= (others => '1');
+					when others =>
+						immextnd(31 downto 12) <= (others => '0');
+				end case;
+
+			-- SB-format (Branch)
+			elsif (opcode = "1100011") then
+				immextnd(11 downto 0) <= instr(31) & instr(7) & instr(30 downto 25) & instr(11 downto 8);
+				case immextnd(11) is
+					when '1' =>
+						immextnd(31 downto 12) <= (others => '1');
+					when others =>
+						immextnd(31 downto 12) <= (others => '0');
+				end case;
+				-- Shift-left by 1
+				immextnd <= immextnd(30 downto 0) & '0';
+			
+			-- Default: No immediate
+			else
+				immextnd <= (others => '0');
+			end if;
+		end process;
+	end architecture;
+
+The code works flawlessly, except for the immextnd output (sign-extended immediate value). I've included a screenshot of the RTL simulation and another of the RTL Viewer (idk why, it just looks cool). In the simulation, I run a set of 4 instructions twice with each instruction being of a different format. The screenshot also includes the instructions I ran, along with the RISC-V instruction format guide. I tried to detail it the best I can for those unfamiliar with the RISC-V ISA.
+
+I would've tried to explain exactly what's wrong with the immediate value, but my head is fried by now. Thank you all in advance.

@@ -1,0 +1,16 @@
+-- RV32I Datapath
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Datapath is
+	port (
+	
+		);
+end entity;
+
+architecture structural of Datapath is
+
+begin
+
+end architecture;

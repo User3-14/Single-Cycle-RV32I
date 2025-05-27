@@ -1,0 +1,22 @@
+-- ALU Control Unit
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity ALU_CU is
+	port (
+			opcode	: in std_logic_vector(6 downto 0);
+			func3		: in std_logic_vector(2 downto 0);
+			func7		: in std_logic_vector(6 downto 0);
+			ALU_op	: out std_logic_vector(6 downto 0)
+		);
+end entity;
+
+architecture behavioral of ALU_CU is
+begin
+	process(opcode)
+	begin
+		
+	end process;
+end architecture;

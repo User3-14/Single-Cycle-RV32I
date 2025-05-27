@@ -1,0 +1,46 @@
+-- Decoder
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Decode is
+	port (
+			instruction	: in std_logic_vector(31 downto 0);
+			opcode		: out std_logic_vector(6 downto 0);
+			func3			: out std_logic_vector(2 downto 0);
+			func7			: out std_logic_vector(6 downto 0);
+			rs1_addr		: out std_logic_vector(4 downto 0);
+			rs2_addr		: out std_logic_vector(4 downto 0);
+			rd_addr		: out std_logic_vector(4 downto 0);
+			immediate	: out std_logic_vector(31 downto 0)
+		);
+end entity;
+
+architecture behavioral of Decode is
+begin
+	
+	opcode <= instruction(6 downto 0);
+	func3 <= instruction(14 downto 12);
+	func7 <= instruction(31 downto 25);
+	rs1_addr <= instruction(19 downto 15);
+	rs2_addr <= instruction(24 downto 20);
+	rd_addr <= instruction(11 downto 7);
+	
+	decode: process(instruction)
+	begin
+		case instruction(6 downto 2) is
+			when b"01101" | b"00101" => -- U type
+				immediate <= instruction(31 downto 12) & (11 downto 0 => '0');
+			when b"11011" => -- J type
+				immediate <= (31 downto 20 => instruction(31)) & instruction(19 downto 12) & instruction(20) & instruction(30 downto 21) & '0';
+			when b"11001" | b"00000" | b"00100"  | b"11100"=> -- I type
+				immediate <= (31 downto 11 => instruction(31)) & instruction(30 downto 20);
+			when b"11000" => -- B type
+				immediate <= (31 downto 12 => instruction(31)) & instruction(7) & instruction(30 downto 25) & instruction(11 downto 8) & '0';
+			when b"01000" => -- S type
+				immediate <= (31 downto 11 => instruction(31)) & instruction(30 downto 25) & instruction(11 downto 7);
+			when others =>
+				immediate <= (others => '0');
+		end case;
+	end process decode;
+end architecture;

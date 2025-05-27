@@ -1,0 +1,20 @@
+-- ALU operations package
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+package ALU_operations is
+	-- Available ALU operations
+	type alu_operationis (
+			ALU_AND, ALU_OR, ALU_XOR,
+			ALU_ADD, ALU_SUB,
+			ALU_SRL, ALU_SLL, ALU_SRA,
+			ALU_NOP, ALU_INVALID
+		);
+end package;
+
+package body ALU_operations is
+
+	
+
+end package body;

@@ -1,0 +1,43 @@
+-- Data Memory
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity Data_memory is
+	port (
+		clk		: in std_logic;
+		wr_en		: in std_logic;
+		address	: in std_logic_vector(31 downto 0);
+		wr_data	: in std_logic_vector(31 downto 0);
+		re_data	: out std_logic_vector(31 downto 0)
+	);
+end entity;
+
+architecture behavioral of Data_memory is
+	type RAM1024x8 is array (1023 downto 0) of std_logic_vector(7 downto 0);
+	signal data_mem : RAM1024x8 :=(others => (others => '0'));	-- only using 1024 locations (10-bit address)
+	signal aligned_address : std_logic_vector(9 downto 0);
+begin
+	aligned_address <= (address(9 downto 2) & "00");
+	write_proc: process(clk)
+	begin
+		if rising_edge(clk) then
+			if (wr_en='1') then
+				data_mem(to_integer(unsigned(aligned_address)) + 0) <= wr_data(7 downto 0);
+				data_mem(to_integer(unsigned(aligned_address)) + 1) <= wr_data(15 downto 8);
+				data_mem(to_integer(unsigned(aligned_address)) + 2) <= wr_data(23 downto 16);
+				data_mem(to_integer(unsigned(aligned_address)) + 3) <= wr_data(31 downto 24);
+			end if;
+		end if;
+	end process;
+	read_proc: process(clk)
+	begin
+		if rising_edge(clk) then
+			re_data(7 downto 0) <= data_mem(to_integer(unsigned(aligned_address)) + 0);
+			re_data(15 downto 8) <= data_mem(to_integer(unsigned(aligned_address)) + 1);
+			re_data(23 downto 16) <= data_mem(to_integer(unsigned(aligned_address)) + 2);
+			re_data(31 downto 24) <= data_mem(to_integer(unsigned(aligned_address)) + 3);
+		end if;
+	end process;
+end architecture;

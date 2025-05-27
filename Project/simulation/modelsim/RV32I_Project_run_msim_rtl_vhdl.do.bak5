@@ -1,0 +1,9 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vcom -2008 -work work {C:/Users/Workstation-1/Local/Studies/Local - Semester-5/ITCE364/RV64I Single Cycle/Project/Components/ALU.vhd}
+

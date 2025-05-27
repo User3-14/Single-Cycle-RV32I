@@ -1,0 +1,26 @@
+Processor Specifications:
+	ISA: RISC_V
+	Design: Single cycle
+	Architecture: 32-bit
+	Register File: 32x32
+	-
+
+Supported Instructions:
+	-Base instructions:
+		1. lw
+		2. sw
+		3. and
+		4. or
+		5. xor
+		6. add
+		7. sub
+	
+	-Extra instructions: (groups of three (Data mov., ALU, branch) )
+		1. lwu,  addi,  beq
+		2. lbu,  sll,   blt
+		3. sb,	 srl,   bltu
+		4. lb,   sra,	jal
+		5. lhw,  slli,  jalr
+		6. nop
+		
+		

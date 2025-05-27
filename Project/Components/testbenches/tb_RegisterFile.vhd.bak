@@ -1,0 +1,84 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity tb_RegisterFile is
+end entity;
+
+architecture behavior of tb_RegisterFile is
+
+	-- Component declaration for the RegisterFile entity
+	component RegisterFile
+		port (
+			clk      : in std_logic;
+			we       : in std_logic;
+			rs1      : in std_logic_vector(4 downto 0);
+			rs2      : in std_logic_vector(4 downto 0);
+			rd       : in std_logic_vector(4 downto 0);
+			din      : in std_logic_vector(31 downto 0);
+			dout_1   : out std_logic_vector(31 downto 0);
+			dout_2   : out std_logic_vector(31 downto 0)
+		);
+	end component;
+	
+	-- Signals for the testbench
+	signal clk      : std_logic := '0';
+	signal we       : std_logic := '0';
+	signal rs1      : std_logic_vector(4 downto 0) := (others => '0');
+	signal rs2      : std_logic_vector(4 downto 0) := (others => '0');
+	signal rd       : std_logic_vector(4 downto 0) := (others => '0');
+	signal din      : std_logic_vector(31 downto 0) := (others => '0');
+	signal dout_1   : std_logic_vector(31 downto 0);
+	signal dout_2   : std_logic_vector(31 downto 0);
+
+	-- Clock generation
+	always begin
+		clk <= not clk after 10 ns;
+		wait for 10 ns;
+	end process;
+
+begin
+
+	-- Instantiate the RegisterFile
+	UUT: RegisterFile
+		port map (
+			clk      => clk,
+			we       => we,
+			rs1      => rs1,
+			rs2      => rs2,
+			rd       => rd,
+			din      => din,
+			dout_1   => dout_1,
+			dout_2   => dout_2
+		);
+
+	-- Stimulus process to generate test cases
+	stimulus: process
+	begin
+		-- Test 1: Write value to register 5 and read it back
+		we <= '1';             -- Enable write
+		rd <= "00101";         -- Write to register 5
+		din <= X"12345678";    -- Data to write
+		wait for 20 ns;
+		
+		-- Test 2: Read from register 5 via rs1
+		rs1 <= "00101";        -- Read from register 5
+		wait for 20 ns;        -- Allow time for data to propagate
+		
+		-- Test 3: Write value to register 10 and read it from rs2
+		rd <= "01010";         -- Write to register 10
+		din <= X"9ABCDEF0";    -- Data to write
+		rs2 <= "01010";        -- Set rs2 to register 10
+		wait for 20 ns;
+		
+		-- Test 4: Disable write and try to write to register 15
+		we <= '0';             -- Disable write
+		rd <= "01111";         -- Try to write to register 15 (should not happen)
+		din <= X"FFFFFFFF";    -- Attempt to write invalid data
+		wait for 20 ns;
+
+		-- Finish the simulation
+		wait;
+	end process;
+
+end behavior;
