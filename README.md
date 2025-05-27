@@ -34,12 +34,9 @@ For a full list with opcodes and function codes, see [`Instructions.txt`](Instru
 ---
 
 ## 📦 File Structure
-- /src # VHDL source files
-- /testbench # Simulation files
-- /docs # Diagrams and documentation
-- Instructions.txt
-- Processor Specifications.txt
-- Datapath.png
+- /Project/Components/  # VHDL source files
+- /Planning/Processor Specifications.txt  # Specs
+- /Planning/Datapath.png  # Image of the final design
 - README.md
 
 
